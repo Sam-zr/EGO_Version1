@@ -45,7 +45,6 @@ namespace EGO.Util
         {
             var todoContent = EditorPrefs.GetString(EGO_TODO, string.Empty);
 
-            //Debug.Log(todoContent);
             if (string.IsNullOrEmpty(todoContent))
             {
                 return mModel=new ToDoList();
@@ -65,8 +64,12 @@ namespace EGO.Util
             return mModel=JsonConvert.DeserializeObject<ToDoList>(todoContent);
         }
 
-        public static void Save(ToDoList toDoList)
+        public static void Save(ToDoList toDoList=null)
         {
+            if (toDoList==null)
+            {
+                toDoList = Model;
+            }
             Debug.Log(JsonConvert.SerializeObject(toDoList));
             EditorPrefs.SetString(EGO_TODO, JsonConvert.SerializeObject(toDoList));
         }

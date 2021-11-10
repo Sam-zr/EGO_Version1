@@ -16,17 +16,15 @@ namespace EGO
             Open<EGOWindow>("MainWindow");
         }
 
-        public override void OnDispose()
-        {
-            
-        }
-
         public override void OnInit()
         {
             mViewController = CreateViewController<ToDoListController>();
         }
 
-
+        public override void OnDispose()
+        {
+            
+        }
     }
 }
 

@@ -31,7 +31,7 @@ namespace EGO.ViewController
             {
                 model.mFinished.UnBindAll();
                 ModelLoader.Model.ToDos.Remove(model);
-                ModelLoader.Model.Save();
+                ModelLoader.Save();
 
                 this.RemoveFromParent();
             });

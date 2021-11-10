@@ -42,7 +42,7 @@ namespace EGO.Util
                 ToDos = newVersionToDos
             };
 
-            newVersionToDoList.Save();
+            ModelLoader.Save();
 
             return JsonConvert.SerializeObject(newVersionToDoList);
         }
