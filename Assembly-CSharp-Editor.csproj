@@ -85,6 +85,9 @@
     <Compile Include="Assets\EGO\Editor\Util\ModelLoader.cs" />
     <Compile Include="Assets\EGO\Editor\Util\ModelUpdate.cs" />
     <Compile Include="Assets\EGO\Editor\ViewController\ToDoListController.cs" />
+    <Compile Include="Assets\EGO\Editor\ViewController\ToDoListInputView.cs" />
+    <Compile Include="Assets\EGO\Editor\ViewController\ToDoListView.cs" />
+    <Compile Include="Assets\EGO\Editor\ViewController\ToDoView.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>H:/Git/EGO_Version1/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>

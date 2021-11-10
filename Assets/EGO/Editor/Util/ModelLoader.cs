@@ -27,6 +27,20 @@ namespace EGO.Util
     {
         public const string EGO_TODO = "EGO_TODO3";
 
+        private static ToDoList mModel = null;
+
+        public static ToDoList Model 
+        {
+            get 
+            {
+                if (mModel==null)
+                {
+                    Load();
+                }
+                return mModel;
+            }
+        }
+
         public static ToDoList Load()
         {
             var todoContent = EditorPrefs.GetString(EGO_TODO, string.Empty);
@@ -34,7 +48,7 @@ namespace EGO.Util
             //Debug.Log(todoContent);
             if (string.IsNullOrEmpty(todoContent))
             {
-                return new ToDoList();
+                return mModel=new ToDoList();
             }
 
             try
@@ -48,7 +62,7 @@ namespace EGO.Util
                 Debug.Log(e);
             }
 
-            return JsonConvert.DeserializeObject<ToDoList>(todoContent);
+            return mModel=JsonConvert.DeserializeObject<ToDoList>(todoContent);
         }
 
         public static void Save(ToDoList toDoList)

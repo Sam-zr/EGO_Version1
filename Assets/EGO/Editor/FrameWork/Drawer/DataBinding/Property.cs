@@ -26,14 +26,18 @@ namespace EGO.FrameWork
             mValue = value;
         }
 
+        private bool setted = false;
+
         private T mValue = default;
         public T Value
         {
             get => mValue;
             set
             {
-                if (!value.Equals(mValue))
+                if (!value.Equals(mValue) || !setted)
                 {
+                    setted = true;
+
                     mValue = value;
                     mSetter?.Invoke(mValue);
                 }
