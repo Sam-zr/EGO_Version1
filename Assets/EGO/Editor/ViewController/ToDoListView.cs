@@ -49,7 +49,7 @@ namespace EGO.ViewController
 
         ILayout mTodosParentContainer = new VerticalLayout("box");
 
-        public void CreateToDoView(ToDo todo)
+        public  void CreateToDoView(ToDo todo)
         {
             var todoView = new ToDoView(todo);
 

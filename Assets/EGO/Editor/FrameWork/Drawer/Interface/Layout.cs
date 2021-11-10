@@ -23,6 +23,9 @@ namespace EGO.FrameWork
     public abstract class Layout : View, ILayout
     {
         public List<IView> mChilds { get; set; } = new List<IView>();
+
+        Queue<Action> Commonds = new Queue<Action>();
+
         public void AddChild(IView view)
         {
             mChilds.Add(view);
@@ -31,7 +34,10 @@ namespace EGO.FrameWork
 
         public void RemoveChild(IView view)
         {
-            mChilds.Remove(view);
+            Commonds.Enqueue(() =>
+            {
+                mChilds.Remove(view);
+            });
         }
 
         protected override void OnGUI()
@@ -42,6 +48,11 @@ namespace EGO.FrameWork
                 child.DrawGUI();
             }
             OnLayoutEnd();
+
+            while (Commonds.Count>0)
+            {
+                Commonds.Dequeue().Invoke();
+            }
         }
 
         protected abstract void OnLayoutBegin();
