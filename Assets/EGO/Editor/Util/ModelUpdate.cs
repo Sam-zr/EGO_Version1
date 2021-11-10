@@ -27,24 +27,62 @@ namespace EGO.Util
     {
         public static string Update(object oldValue)
         {
-            var deprecated = oldValue as Deprecated.ToDoList;
-
-            Debug.Log("开始升级数据结构");
-
-            var newVersionToDos = deprecated.ToDos.Select(todo => new ToDo()
+            Debug.Log("准备升级数据结构");
+            if (oldValue.GetType()==typeof(Deprecated.ToDoList))
             {
-                mContent = todo.mContent,
-                mFinished = new Property<bool>(todo.mFinished)
-            }).ToList();
+                var deprecated = oldValue as Deprecated.ToDoList;
 
-            var newVersionToDoList = new ToDoList()
-            {
-                ToDos = newVersionToDos
-            };
+                Debug.Log("开始升级数据结构");
 
-            ModelLoader.Save();
+                var newVersionToDos = deprecated.ToDos.Select(todo => new ToDo()
+                {
+                    mContent = todo.mContent,
+                    mFinished = new Property<bool>(todo.mFinished)
+                }).ToList();
 
-            return JsonConvert.SerializeObject(newVersionToDoList);
+                var newVersionToDoList = new ToDoList()
+                {
+                    ToDos = newVersionToDos
+                };
+
+                ModelLoader.Save();
+
+                return JsonConvert.SerializeObject(newVersionToDoList);
+            }
+            return JsonConvert.SerializeObject(new ToDoList());
         }
+    }
+
+    public class ModelUpdateCommand_Ver_1 : UpdateAction<ToDoList, V_1.ToDoList>
+    {
+        public override V_1.ToDoList ConvertOld2New(ToDoList oldModel)
+        {
+            var newTodoList = new V_1.ToDoList();
+
+            foreach (var oldTodo in oldModel.ToDos)
+            {
+                var newTodo = new V_1.ToDo();
+
+                newTodo.mContent = oldTodo.mContent;
+                newTodo.State.Value = oldTodo.mFinished.Value ? V_1.TodoState.Done : V_1.TodoState.NotStart;
+
+                newTodoList.ToDos.Add(newTodo);
+            }
+            return newTodoList;
+        }
+    }
+
+    public abstract class UpdateAction<TOldModel, TNewModel> 
+        where TNewModel:class
+        where TOldModel:class
+    {
+        public TNewModel Result { get; private set;  }
+
+        public void Execute(object oldValue)
+        {
+            Result = ConvertOld2New(oldValue as TOldModel);
+        }
+
+        public abstract TNewModel ConvertOld2New(TOldModel oldModel);
     }
 }

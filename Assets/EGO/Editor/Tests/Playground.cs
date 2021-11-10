@@ -12,21 +12,13 @@ public class Playground
     [Test]
     public void PlaygroundSimplePasses()
     {
-        // Use the Assert class to test conditions
-        //var propety = new Propety<int>(10);
-        //Debug.Log(JsonUtility.ToJson(propety));
-        //Debug.Log(JsonConvert.SerializeObject(propety));
-        //Debug.Log(propety.mValue);
+        var todoList = ModelLoader.Load();
 
-        //var intPropety = new IntPropety();
-        //intPropety.Value = 10;
-        //Debug.Log(JsonUtility.ToJson(intPropety));
-        //Debug.Log(JsonConvert.SerializeObject(intPropety));
-        //Debug.Log(intPropety.Value);
+        Debug.Log(JsonConvert.SerializeObject(todoList, Formatting.Indented));
 
-        //Debug.Log(JsonUtility.ToJson(propety));
-        //Debug.Log(JsonConvert.SerializeObject(propety));
-        //Debug.Log(propety.mValue);
+        var Comm = new ModelUpdateCommand_Ver_1();
+        Comm.Execute(todoList);
+        Debug.Log(JsonConvert.SerializeObject(Comm.Result, Formatting.Indented));
 
         //  ╤оят
         Assert.IsTrue(true);
