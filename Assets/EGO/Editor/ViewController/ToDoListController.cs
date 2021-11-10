@@ -1,6 +1,7 @@
 ﻿using EGO.FrameWork;
 using EGO.Util;
 using System;
+using UnityEngine;
 
 namespace EGO.ViewController
 {
@@ -10,6 +11,8 @@ namespace EGO.ViewController
 
         public ToDoListInputView InputView { get; set; } = new ToDoListInputView();
         public ToDoListView ListView { get; set; } = new ToDoListView();
+
+        public ToolBarView ToolBarView { get; set; } = new ToolBarView();
  
         public ToDoListController()
         {            
@@ -17,6 +20,20 @@ namespace EGO.ViewController
 
         public override void SetUpView()
         {
+            ToolBarView.AddMenu("Button1", content =>
+             {
+                 Debug.Log(content);
+             });
+            ToolBarView.AddMenu("Button2", content =>
+            {
+                Debug.Log(content);
+            });
+            ToolBarView.AddMenu("Button3", content =>
+            {
+                Debug.Log(content);
+            });
+            View.AddChild(ToolBarView);
+
             InputView.OnTodoCreate = newToDo =>
             {
                 newToDo.mFinished.Bind(_ => ModelLoader.Model.Save());

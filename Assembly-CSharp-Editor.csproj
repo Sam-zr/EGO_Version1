@@ -80,6 +80,7 @@
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\SpaceView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\TextAreaView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\ToggleView.cs" />
+    <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\ToolBarView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Window\Window.cs" />
     <Compile Include="Assets\EGO\Editor\Tests\Playground.cs" />
     <Compile Include="Assets\EGO\Editor\Util\ModelLoader.cs" />
