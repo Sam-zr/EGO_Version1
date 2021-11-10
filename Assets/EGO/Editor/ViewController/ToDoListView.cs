@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditor;
-using EGO.FrameWork;
+﻿using EGO.FrameWork;
 using EGO.Util;
 
 namespace EGO.ViewController
@@ -43,30 +37,35 @@ namespace EGO.ViewController
             AddChild(mShowFinishedButton);
             AddChild(mShowUnFinishedButton);
 
-            var verticalLayout = new VerticalLayout("box");
+            foreach (var todo in ModelLoader.Model.ToDos)
             {
-                foreach (var todo in ModelLoader.Model.ToDos)
-                {
-                    var todoView = new ToDoView(todo);
-
-                    verticalLayout.AddChild(todoView);
-
-                    mShowFinished.Bind(showFinished =>
-                    {
-                        if (todoView.model.mFinished.Value==showFinished)
-                        {
-                            todoView.Show();
-                        }
-                        else
-                        {
-                            todoView.Hide();
-                        }
-                    });
-                }
-                AddChild(verticalLayout);
-
-                mShowFinished.Value = false;
+                CreateToDoView(todo);
             }
+
+            AddChild(mTodosParentContainer);
+
+            mShowFinished.Value = false;
+        }
+
+        ILayout mTodosParentContainer = new VerticalLayout("box");
+
+        public void CreateToDoView(ToDo todo)
+        {
+            var todoView = new ToDoView(todo);
+
+            mTodosParentContainer.AddChild(todoView);
+
+            mShowFinished.Bind(showFinished =>
+            {
+                if (todoView.model.mFinished.Value == showFinished)
+                {
+                    todoView.Show();
+                }
+                else
+                {
+                    todoView.Hide();
+                }
+            });
         }
 
         public void OnClickFinishedBtn()

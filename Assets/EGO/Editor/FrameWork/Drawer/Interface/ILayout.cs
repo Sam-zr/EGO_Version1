@@ -1,6 +1,9 @@
 ﻿namespace EGO.FrameWork
 {
-    interface ILayout:IView
+    public interface ILayout:IView
     {
+        void AddChild(IView view);
+
+        void RemoveChild(IView view);
     }
 }

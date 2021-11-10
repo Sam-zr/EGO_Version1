@@ -43,5 +43,12 @@ namespace EGO.FrameWork
         }
 
         protected abstract void OnGUI();
+
+        public ILayout Parent { get; set; }
+
+        public void RemoveFromParent()
+        {
+            Parent.RemoveChild(this);
+        }
     }
 }

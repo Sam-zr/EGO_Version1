@@ -26,6 +26,7 @@ namespace EGO.FrameWork
         public void AddChild(IView view)
         {
             mChilds.Add(view);
+            view.Parent = this;
         }
 
         public void RemoveChild(IView view)
