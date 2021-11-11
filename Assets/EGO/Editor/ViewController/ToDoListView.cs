@@ -31,7 +31,7 @@ namespace EGO.ViewController
 
             mShowFinished.Bind(showFinished =>
             {
-                if (showFinished==(todoView.model.State.Value == V_1.TodoState.Done))
+                if (showFinished==(todoView.mModel.State.Value == V_1.TodoState.Done))
                 {
                     todoView.Show();
                 }

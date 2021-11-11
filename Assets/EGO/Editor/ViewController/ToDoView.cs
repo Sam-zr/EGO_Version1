@@ -19,36 +19,82 @@ namespace EGO.ViewController
 {
     class ToDoView:HorizontalLayout
     {
-        public V_1.ToDo model;
+        public V_1.ToDo mModel;
+
+        ButtonView mBtnStart;
+        ButtonView mBtnFinish;
+        ButtonView mBtnReset;
+
         public ToDoView(V_1.ToDo toDo)
         {
-            model = toDo;
+            mModel = toDo;
 
-            var toggle = new ToggleView(model.mContent,
-                model.State.Value == V_1.TodoState.NotStart || model.State.Value == V_1.TodoState.NotStart ? false : true);
-            toggle.mToggle.Bind(mValue =>
+            mBtnStart = new ButtonView("开始", () =>
             {
-                if (mValue==true)
-                {
-                    model.State.Value = V_1.TodoState.Done;
-                }
-                else
-                {
-                    model.State.Value = V_1.TodoState.NotStart;
-                }
-            } );
-            AddChild(toggle);
+                mModel.State.Value = V_1.TodoState.Started;
+                UpdateView();
+            }).Width(50);
+
+            mBtnFinish = new ButtonView("完成", () =>
+            {
+                mModel.State.Value = V_1.TodoState.Done;
+                UpdateView();
+            }).Width(50);
+
+            mBtnReset = new ButtonView("重置", () =>
+            {
+                mModel.State.Value = V_1.TodoState.NotStart;
+                UpdateView();
+            }).Width(50);
+
+            AddChild(mBtnStart);
+            AddChild(mBtnFinish);
+            AddChild(mBtnReset);
+
+
+            var Label = new CustomView(() =>
+              {
+                  GUILayout.Label(mModel.mContent);
+              });
+
+            AddChild(Label);
 
             var button = new ButtonView("删除", () =>
             {
-                model.State.UnBindAll();
-                ModelLoader<V_1.ToDoList>.Model.ToDos.Remove(model);
+                mModel.State.UnBindAll();
+                ModelLoader<V_1.ToDoList>.Model.ToDos.Remove(mModel);
                 ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
 
                 this.RemoveFromParent();
             }).Width(60);
 
             AddChild(button);
+
+            UpdateView();
+        }
+
+        void UpdateView()
+        {
+            switch (mModel.State.Value)
+            {
+                case V_1.TodoState.NotStart:
+                    mBtnStart.Show();
+                    mBtnFinish.Hide();
+                    mBtnReset.Hide();
+                    break;
+                case V_1.TodoState.Started:
+                    mBtnStart.Hide();
+                    mBtnFinish.Show();
+                    mBtnReset.Hide();
+                    break;
+                case V_1.TodoState.Done:
+                    mBtnStart.Hide();
+                    mBtnFinish.Hide();
+                    mBtnReset.Show();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
