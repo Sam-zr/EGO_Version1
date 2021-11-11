@@ -1,5 +1,6 @@
 ﻿using EGO.FrameWork;
 using System;
+using UnityEngine;
 
 namespace EGO.ViewController
 {
@@ -12,19 +13,27 @@ namespace EGO.ViewController
         {
             mStyle = "box";
 
-            var textAreaView = new TextAreaView(mInputContent);
-            textAreaView.Content.Bind(newValue => mInputContent = newValue);
-            AddChild(textAreaView);
-
-            AddChild(new ButtonView("添加", () =>
+            var horizontalLayout = new HorizontalLayout(mStyle);
             {
-                if (!string.IsNullOrEmpty(mInputContent))
-                {
-                    var newToDo = new V_1.ToDo() { mContent = mInputContent};
-                    OnTodoCreate(newToDo);
-                    mInputContent = string.Empty;
-                }
-            }));
+                var textAreaView = new TextAreaView(mInputContent);
+                textAreaView.Content.Bind(newValue => mInputContent = newValue);
+                horizontalLayout.AddChild(textAreaView);
+
+                var buttonView = new ButtonView("添加", () =>
+                 {
+                     if (!string.IsNullOrEmpty(mInputContent))
+                     {
+                         var newToDo = new V_1.ToDo() { mContent = mInputContent };
+                         OnTodoCreate(newToDo);
+                         mInputContent = string.Empty;
+                     }
+                 });
+                buttonView.LayoutOptions.Add(GUILayout.Width(50));
+
+                horizontalLayout.AddChild(buttonView);
+            }
+            
+            AddChild(horizontalLayout);
         }
     }
 }

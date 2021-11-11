@@ -13,6 +13,7 @@
 
 using EGO.FrameWork;
 using EGO.Util;
+using UnityEngine;
 
 namespace EGO.ViewController
 {
@@ -46,6 +47,8 @@ namespace EGO.ViewController
 
                 this.RemoveFromParent();
             });
+            button.LayoutOptions.Add(GUILayout.Width(60));
+
             AddChild(button);
         }
     }

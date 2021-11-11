@@ -25,6 +25,7 @@ namespace EGO.FrameWork
     {
         public Action mOnClickAction { get; set; }
         public string mButtonContent { get; set; }
+        private GUILayoutOption[] Options { get; set; }
 
         public ButtonView(string buttonContent,Action onClickAction)
         {
@@ -32,9 +33,22 @@ namespace EGO.FrameWork
             mOnClickAction = onClickAction;
         }
 
+        private bool isBeforeDrawed = false;
+        private void BeforeDrawGUI()
+        {
+            if (isBeforeDrawed)
+            {
+                return;
+            }
+            isBeforeDrawed = true;
+            Options = LayoutOptions.ToArray();
+        }
+
         protected override void OnGUI()
         {
-            if (GUILayout.Button(mButtonContent))
+            BeforeDrawGUI();
+
+            if (GUILayout.Button(mButtonContent, Options))
             {
                 mOnClickAction.Invoke();
             }
