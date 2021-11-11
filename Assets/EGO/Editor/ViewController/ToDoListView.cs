@@ -9,6 +9,8 @@ namespace EGO.ViewController
 
         public ToDoListView()
         {
+            mStyle = "Box";
+
             foreach (var todo in ModelLoader<V_1.ToDoList>.Model.ToDos)
             {
                 CreateToDoView(todo);

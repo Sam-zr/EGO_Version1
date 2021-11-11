@@ -46,8 +46,7 @@ namespace EGO.ViewController
                 ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
 
                 this.RemoveFromParent();
-            });
-            button.LayoutOptions.Add(GUILayout.Width(60));
+            }).Width(60);
 
             AddChild(button);
         }

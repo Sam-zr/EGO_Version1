@@ -66,7 +66,8 @@
   <ItemGroup>
     <Compile Include="Assets\EGO\Editor\EGOModel.cs" />
     <Compile Include="Assets\EGO\Editor\EGOWindow.cs" />
-    <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\DataBinding\Property.cs" />
+    <Compile Include="Assets\EGO\Editor\FrameWork\DataBinding\Property.cs" />
+    <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Extension\ViewExtension.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Interface\ILayout.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Interface\IView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Interface\Layout.cs" />

@@ -1,23 +1,5 @@
-﻿/**
-*┌──────────────────────────────────────────────────────────────┐
-*│　描   述：                                                    
-*│　作   者：zhangren                                              
-*│　版   本：1.0                                                 
-*│　创建时间：2021/11/9 10:15:05                             
-*└──────────────────────────────────────────────────────────────┘
-*┌──────────────────────────────────────────────────────────────┐
-*│　命名空间: Assets.EGO.Editor.Util                                   
-*│　类   名：ModelLoader                                      
-*└──────────────────────────────────────────────────────────────┘
-*/
-
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -69,7 +51,7 @@ namespace EGO.Util
     {
         public static void Save<TModel>(this TModel toDoList) where TModel : class
         {
-            Debug.Log(JsonConvert.SerializeObject(toDoList));
+            //Debug.Log(JsonConvert.SerializeObject(toDoList));
             EditorPrefs.SetString(ModelLoader<V_1.ToDoList>.EGO_TODO, JsonConvert.SerializeObject(toDoList));
         }
     }

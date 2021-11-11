@@ -25,7 +25,9 @@ namespace EGO.FrameWork
     {
         public bool mVisible { get; set; } = true;
 
-        public List<GUILayoutOption> LayoutOptions { get;} = new List<GUILayoutOption>();
+        private List<GUILayoutOption> mLayoutOptions { get;} = new List<GUILayoutOption>();
+
+        public GUILayoutOption[] mStyles;
 
         public void Show()
         {
@@ -37,10 +39,24 @@ namespace EGO.FrameWork
             mVisible = false;
         }
 
+        public bool mIsBeforeDrawGUI = false;
+
+        public void BeforeDrawGUI()
+        {
+            if (mIsBeforeDrawGUI)
+            {
+                return;
+            }
+            mIsBeforeDrawGUI = true;
+            mStyles = mLayoutOptions.ToArray();
+        }
+
         public void DrawGUI()
         {
             if (mVisible == true)
             {
+                BeforeDrawGUI();
+
                 OnGUI();
             }
         }
@@ -52,6 +68,11 @@ namespace EGO.FrameWork
         public void RemoveFromParent()
         {
             Parent.RemoveChild(this);
+        }
+
+        public void AddLayoutOption(GUILayoutOption option)
+        {
+            mLayoutOptions.Add(option);
         }
     }
 }

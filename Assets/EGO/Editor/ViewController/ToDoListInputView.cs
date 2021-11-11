@@ -13,7 +13,7 @@ namespace EGO.ViewController
         {
             mStyle = "box";
 
-            var horizontalLayout = new HorizontalLayout(mStyle);
+            var horizontalLayout = new HorizontalLayout();
             {
                 var textAreaView = new TextAreaView(mInputContent);
                 textAreaView.Content.Bind(newValue => mInputContent = newValue);
@@ -27,8 +27,7 @@ namespace EGO.ViewController
                          OnTodoCreate(newToDo);
                          mInputContent = string.Empty;
                      }
-                 });
-                buttonView.LayoutOptions.Add(GUILayout.Width(50));
+                 }).Width(40);
 
                 horizontalLayout.AddChild(buttonView);
             }
