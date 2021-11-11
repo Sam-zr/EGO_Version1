@@ -20,19 +20,20 @@ namespace EGO.ViewController
 
         public override void SetUpView()
         {
-            ToolBarView.AddMenu("Button1", content =>
+            mView.mStyle = "box";
+
+            ToolBarView.AddMenu("清单", content =>
              {
-                 Debug.Log(content);
+                 ListView.mShowFinished.Value = false;
+                 InputView.Show();
              });
-            ToolBarView.AddMenu("Button2", content =>
+            ToolBarView.AddMenu("已完成", content =>
             {
-                Debug.Log(content);
+                ListView.mShowFinished.Value = true;
+                InputView.Hide();
             });
-            ToolBarView.AddMenu("Button3", content =>
-            {
-                Debug.Log(content);
-            });
-            View.AddChild(ToolBarView);
+
+            mView.AddChild(ToolBarView);
 
             InputView.OnTodoCreate = newToDo =>
             {
@@ -41,11 +42,9 @@ namespace EGO.ViewController
                 ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
                 ListView.CreateToDoView(newToDo);
             };
-            View.AddChild(InputView);
+            mView.AddChild(InputView);
 
-            View.AddChild(new SpaceView(10));
-
-            View.AddChild(ListView);
+            mView.AddChild(ListView);
         }
     }
 }

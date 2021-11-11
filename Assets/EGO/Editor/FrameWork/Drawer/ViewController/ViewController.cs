@@ -2,7 +2,7 @@
 {
     public abstract class ViewController
     {
-        public VerticalLayout View = new VerticalLayout();
+        public VerticalLayout mView = new VerticalLayout();
 
         public abstract void SetUpView();
     }

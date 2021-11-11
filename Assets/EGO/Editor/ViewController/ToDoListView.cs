@@ -5,38 +5,10 @@ namespace EGO.ViewController
 {
     class ToDoListView : VerticalLayout
     {
-        private ButtonView mShowUnFinishedButton = null;
-        private ButtonView mShowFinishedButton = null;
-
-        private Property<bool> mShowFinished = new Property<bool>(true);
+        public Property<bool> mShowFinished = new Property<bool>(true);
 
         public ToDoListView()
         {
-            AddChild(new SpaceView());
-
-            mShowUnFinishedButton = new ButtonView("显示已完成",OnClickUnFinishedBtn);
-
-            mShowFinishedButton = new ButtonView("显示未完成",OnClickFinishedBtn);
-
-            mShowFinished.Bind(newvalue =>
-            {
-                if (newvalue == true)
-                {
-                    mShowFinishedButton.Show();
-                    mShowUnFinishedButton.Hide();
-                }
-                else
-                {
-                    mShowFinishedButton.Hide();
-                    mShowUnFinishedButton.Show();
-                }
-            });
-
-            
-
-            AddChild(mShowFinishedButton);
-            AddChild(mShowUnFinishedButton);
-
             foreach (var todo in ModelLoader<V_1.ToDoList>.Model.ToDos)
             {
                 CreateToDoView(todo);
@@ -57,7 +29,7 @@ namespace EGO.ViewController
 
             mShowFinished.Bind(showFinished =>
             {
-                if (showFinished==(todoView.model.State.Value == V_1.TodoState.NotStart || todoView.model.State.Value == V_1.TodoState.Started))
+                if (showFinished==(todoView.model.State.Value == V_1.TodoState.Done))
                 {
                     todoView.Show();
                 }

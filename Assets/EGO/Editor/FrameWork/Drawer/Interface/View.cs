@@ -17,12 +17,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace EGO.FrameWork
 {
     public abstract class View : IView
     {
         public bool mVisible { get; set; } = true;
+
+        public List<GUILayoutOption> LayoutOptions { get;} = new List<GUILayoutOption>();
 
         public void Show()
         {

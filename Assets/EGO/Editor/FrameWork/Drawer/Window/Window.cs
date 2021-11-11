@@ -40,7 +40,7 @@ namespace EGO.FrameWork
 
         private void OnGUI()
         {
-            mViewController.View.DrawGUI();
+            mViewController.mView.DrawGUI();
         }
 
         public void Init()

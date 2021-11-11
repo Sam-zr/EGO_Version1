@@ -12,8 +12,6 @@ namespace EGO.ViewController
         {
             mStyle = "box";
 
-            AddChild(new SpaceView());
-
             var textAreaView = new TextAreaView(mInputContent);
             textAreaView.Content.Bind(newValue => mInputContent = newValue);
             AddChild(textAreaView);
