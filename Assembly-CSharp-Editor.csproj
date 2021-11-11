@@ -64,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EGO\Editor\Deprecated\DeprecatedModel.cs" />
     <Compile Include="Assets\EGO\Editor\EGOModel.cs" />
     <Compile Include="Assets\EGO\Editor\EGOWindow.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\DataBinding\Property.cs" />

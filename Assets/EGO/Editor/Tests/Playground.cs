@@ -12,7 +12,7 @@ public class Playground
     [Test]
     public void PlaygroundSimplePasses()
     {
-        var todoList = ModelLoader.Load();
+        var todoList = ModelLoader<EGO.V_1.ToDoList>.Load();
 
         Debug.Log(JsonConvert.SerializeObject(todoList, Formatting.Indented));
 

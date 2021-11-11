@@ -23,17 +23,18 @@ using UnityEngine;
 
 namespace EGO.Util
 {
-    public static class ModelLoader
+    public static class ModelLoader<TModel>
+        where TModel : class, new()
     {
         public const string EGO_TODO = "EGO_TODO3";
 
-        private static ToDoList mModel = null;
+        private static TModel mModel = null;
 
-        public static ToDoList Model 
+        public static TModel Model
         {
-            get 
+            get
             {
-                if (mModel==null)
+                if (mModel == null)
                 {
                     Load();
                 }
@@ -41,37 +42,35 @@ namespace EGO.Util
             }
         }
 
-        public static ToDoList Load()
+        public static TModel Load()
         {
             var todoContent = EditorPrefs.GetString(EGO_TODO, string.Empty);
 
             if (string.IsNullOrEmpty(todoContent))
             {
-                return mModel=new ToDoList();
+                return mModel = new TModel();
             }
 
             try
             {
-                var deprecated = JsonConvert.DeserializeObject<Deprecated.ToDoList>(todoContent);
-
-                todoContent=ModelUpdate.Update(deprecated);
+                mModel = JsonConvert.DeserializeObject<TModel>(todoContent);
             }
             catch (Exception e)
             {
+                mModel = ModelUpdate.Update<TModel>(todoContent);
                 Debug.Log(e);
             }
 
-            return mModel=JsonConvert.DeserializeObject<ToDoList>(todoContent);
+            return mModel = JsonConvert.DeserializeObject<TModel>(todoContent);
         }
+    }
 
-        public static void Save(ToDoList toDoList=null)
+    public static class ModelExtension
+    {
+        public static void Save<TModel>(this TModel toDoList) where TModel : class
         {
-            if (toDoList==null)
-            {
-                toDoList = Model;
-            }
             Debug.Log(JsonConvert.SerializeObject(toDoList));
-            EditorPrefs.SetString(EGO_TODO, JsonConvert.SerializeObject(toDoList));
+            EditorPrefs.SetString(ModelLoader<V_1.ToDoList>.EGO_TODO, JsonConvert.SerializeObject(toDoList));
         }
     }
 }

@@ -36,10 +36,10 @@ namespace EGO.ViewController
 
             InputView.OnTodoCreate = newToDo =>
             {
-                newToDo.mFinished.Bind(_ => ModelLoader.Save());
+                newToDo.State.Bind(_ => ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model));
+                ModelLoader<V_1.ToDoList>.Model.ToDos.Add(newToDo);
+                ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
                 ListView.CreateToDoView(newToDo);
-                ModelLoader.Model.ToDos.Add(newToDo);
-                ModelLoader.Save();
             };
             View.AddChild(InputView);
 

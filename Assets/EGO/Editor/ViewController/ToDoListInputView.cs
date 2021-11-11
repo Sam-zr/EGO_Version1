@@ -5,7 +5,7 @@ namespace EGO.ViewController
 {
     class ToDoListInputView:VerticalLayout
     {
-        public Action<ToDo> OnTodoCreate;
+        public Action<V_1.ToDo> OnTodoCreate;
 
         public string mInputContent = string.Empty;
         public ToDoListInputView()
@@ -22,7 +22,7 @@ namespace EGO.ViewController
             {
                 if (!string.IsNullOrEmpty(mInputContent))
                 {
-                    var newToDo = new ToDo() { mContent = mInputContent, mFinished = new Property<bool>() };
+                    var newToDo = new V_1.ToDo() { mContent = mInputContent};
                     OnTodoCreate(newToDo);
                     mInputContent = string.Empty;
                 }

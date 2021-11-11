@@ -18,20 +18,31 @@ namespace EGO.ViewController
 {
     class ToDoView:HorizontalLayout
     {
-        public ToDo model;
-        public ToDoView(ToDo toDo)
+        public V_1.ToDo model;
+        public ToDoView(V_1.ToDo toDo)
         {
             model = toDo;
 
-            var toggle = new ToggleView(model.mContent, model.mFinished.Value);
-            toggle.mToggle.Bind(mValue => model.mFinished.Value = mValue);
+            var toggle = new ToggleView(model.mContent,
+                model.State.Value == V_1.TodoState.NotStart || model.State.Value == V_1.TodoState.NotStart ? false : true);
+            toggle.mToggle.Bind(mValue =>
+            {
+                if (mValue==true)
+                {
+                    model.State.Value = V_1.TodoState.Done;
+                }
+                else
+                {
+                    model.State.Value = V_1.TodoState.NotStart;
+                }
+            } );
             AddChild(toggle);
 
             var button = new ButtonView("删除", () =>
             {
-                model.mFinished.UnBindAll();
-                ModelLoader.Model.ToDos.Remove(model);
-                ModelLoader.Save();
+                model.State.UnBindAll();
+                ModelLoader<V_1.ToDoList>.Model.ToDos.Remove(model);
+                ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
 
                 this.RemoveFromParent();
             });

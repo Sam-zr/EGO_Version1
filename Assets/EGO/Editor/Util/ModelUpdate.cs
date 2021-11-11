@@ -25,34 +25,22 @@ namespace EGO.Util
 {
     class ModelUpdate
     {
-        public static string Update(object oldValue)
+        public static TNewModel Update<TNewModel>(string  strOldValue)
+            where TNewModel:class
         {
-            Debug.Log("准备升级数据结构");
-            if (oldValue.GetType()==typeof(Deprecated.ToDoList))
-            {
-                var deprecated = oldValue as Deprecated.ToDoList;
+            //转化成旧的数据结构
+            var oldValue = JsonConvert.DeserializeObject<ToDoList>(strOldValue);
 
-                Debug.Log("开始升级数据结构");
+            var UpdateComm = new ModelUpdateCommand_Ver_1();
+            UpdateComm.Execute(oldValue);
 
-                var newVersionToDos = deprecated.ToDos.Select(todo => new ToDo()
-                {
-                    mContent = todo.mContent,
-                    mFinished = new Property<bool>(todo.mFinished)
-                }).ToList();
-
-                var newVersionToDoList = new ToDoList()
-                {
-                    ToDos = newVersionToDos
-                };
-
-                ModelLoader.Save();
-
-                return JsonConvert.SerializeObject(newVersionToDoList);
-            }
-            return JsonConvert.SerializeObject(new ToDoList());
+            return UpdateComm.Result as TNewModel;
         }
     }
 
+    /// <summary>
+    /// 结构升级V_1
+    /// </summary>
     public class ModelUpdateCommand_Ver_1 : UpdateAction<ToDoList, V_1.ToDoList>
     {
         public override V_1.ToDoList ConvertOld2New(ToDoList oldModel)
@@ -64,7 +52,7 @@ namespace EGO.Util
                 var newTodo = new V_1.ToDo();
 
                 newTodo.mContent = oldTodo.mContent;
-                newTodo.State.Value = oldTodo.mFinished.Value ? V_1.TodoState.Done : V_1.TodoState.NotStart;
+                newTodo.State.Value = oldTodo.mFinished!=null && oldTodo.mFinished.Value ? V_1.TodoState.Done : V_1.TodoState.NotStart;
 
                 newTodoList.ToDos.Add(newTodo);
             }
@@ -72,17 +60,31 @@ namespace EGO.Util
         }
     }
 
+    /// <summary>
+    /// 数据结构升级基类
+    /// </summary>
+    /// <typeparam name="TOldModel"></typeparam>
+    /// <typeparam name="TNewModel"></typeparam>
     public abstract class UpdateAction<TOldModel, TNewModel> 
         where TNewModel:class
         where TOldModel:class
     {
         public TNewModel Result { get; private set;  }
 
+        /// <summary>
+        /// 执行，调用子类实现的抽象方法
+        /// </summary>
+        /// <param name="oldValue"></param>
         public void Execute(object oldValue)
         {
             Result = ConvertOld2New(oldValue as TOldModel);
         }
 
+        /// <summary>
+        /// 旧的数据结构转化为新的
+        /// </summary>
+        /// <param name="oldModel">旧的数据结构</param>
+        /// <returns></returns>
         public abstract TNewModel ConvertOld2New(TOldModel oldModel);
     }
 }

@@ -37,7 +37,7 @@ namespace EGO.ViewController
             AddChild(mShowFinishedButton);
             AddChild(mShowUnFinishedButton);
 
-            foreach (var todo in ModelLoader.Model.ToDos)
+            foreach (var todo in ModelLoader<V_1.ToDoList>.Model.ToDos)
             {
                 CreateToDoView(todo);
             }
@@ -49,7 +49,7 @@ namespace EGO.ViewController
 
         ILayout mTodosParentContainer = new VerticalLayout("box");
 
-        public  void CreateToDoView(ToDo todo)
+        public  void CreateToDoView(V_1.ToDo todo)
         {
             var todoView = new ToDoView(todo);
 
@@ -57,7 +57,7 @@ namespace EGO.ViewController
 
             mShowFinished.Bind(showFinished =>
             {
-                if (todoView.model.mFinished.Value == showFinished)
+                if (showFinished==(todoView.model.State.Value == V_1.TodoState.NotStart || todoView.model.State.Value == V_1.TodoState.Started))
                 {
                     todoView.Show();
                 }

@@ -18,13 +18,20 @@ namespace EGO.V_1
     {
         public string mContent;
 
-        public DateTime CreateAt = DateTime.Now;
+        public DateTime CreateAt;
 
         public DateTime FinishedAt;
 
         public DateTime StartTime;
 
-        public Property<TodoState> State=new Property<TodoState>(TodoState.NotStart);
+        public Property<TodoState> State;
+
+        public ToDo()
+        {
+            CreateAt = DateTime.Now;
+            State = new Property<TodoState>(TodoState.NotStart);
+        }
+
     }
 
     public enum TodoState
