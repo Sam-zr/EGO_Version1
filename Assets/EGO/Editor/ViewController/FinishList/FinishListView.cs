@@ -44,7 +44,7 @@ namespace EGO.ViewController
 
         public void CreateToDoView(V_1.ToDo todo)
         {
-            var todoView = new ToDoView(todo);
+            var todoView = new FinishedView(todo);
 
             mTodosParentContainer.AddChild(todoView);
         }

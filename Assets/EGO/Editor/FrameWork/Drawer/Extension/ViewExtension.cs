@@ -12,7 +12,7 @@ namespace EGO.FrameWork
 
         public static T Height<T>(this T view, float width) where T : IView 
         {
-            view.AddLayoutOption(GUILayout.Width(width));
+            view.AddLayoutOption(GUILayout.Height(width));
             return view;
         }
 

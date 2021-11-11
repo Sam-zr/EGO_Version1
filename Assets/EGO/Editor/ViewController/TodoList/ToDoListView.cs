@@ -6,8 +6,6 @@ namespace EGO.ViewController
 {
     class ToDoListView : VerticalLayout
     {
-        public Property<bool> mShowFinished = new Property<bool>(true);
-
         public ToDoListInputView InputView { get; set; } = new ToDoListInputView();
 
         public ToDoListView()
@@ -29,8 +27,6 @@ namespace EGO.ViewController
             }
 
             AddChild(mTodosParentContainer);
-
-            mShowFinished.Value = false;
         }
 
         ILayout mTodosParentContainer = new VerticalLayout("box");
@@ -45,16 +41,6 @@ namespace EGO.ViewController
             var todoView = new ToDoView(todo);
 
             mTodosParentContainer.AddChild(todoView);
-        }
-
-        public void OnClickFinishedBtn()
-        {
-            mShowFinished.Value = false;
-        }
-
-        public void OnClickUnFinishedBtn()
-        {
-            mShowFinished.Value = true;
         }
     }
 }

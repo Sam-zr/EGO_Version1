@@ -77,6 +77,7 @@
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\ViewController\ViewController.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\ButtonView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\CustomView.cs" />
+    <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\ImageButtonVIew.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\SpaceView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\TextAreaView.cs" />
     <Compile Include="Assets\EGO\Editor\FrameWork\Drawer\Views\ToggleView.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\EGO\Editor\Util\ModelLoader.cs" />
     <Compile Include="Assets\EGO\Editor\Util\ModelUpdate.cs" />
     <Compile Include="Assets\EGO\Editor\ViewController\FinishList\FinishListView.cs" />
+    <Compile Include="Assets\EGO\Editor\ViewController\FinishList\FinishedView.cs" />
     <Compile Include="Assets\EGO\Editor\ViewController\ToDoListController.cs" />
     <Compile Include="Assets\EGO\Editor\ViewController\TodoList\ToDoListInputView.cs" />
     <Compile Include="Assets\EGO\Editor\ViewController\TodoList\ToDoListView.cs" />

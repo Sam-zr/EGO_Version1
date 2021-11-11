@@ -23,13 +23,11 @@ namespace EGO.ViewController
 
             ToolBarView.AddMenu("清单", content =>
              {
-                 MTodoListView.mShowFinished.Value = false;
                  MTodoListView.Show();
                  MFinishListView.Hide();
              });
             ToolBarView.AddMenu("已完成", content =>
             {
-                MTodoListView.mShowFinished.Value = true;
                 MTodoListView.Hide();
                 MFinishListView.Show();
             });

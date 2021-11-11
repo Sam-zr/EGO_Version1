@@ -21,7 +21,7 @@ namespace EGO.ViewController
     {
         public V_1.ToDo mModel;
 
-        ButtonView mBtnStart;
+        ImageButtonVIew mBtnStart;
         ButtonView mBtnFinish;
         ButtonView mBtnReset;
 
@@ -29,7 +29,7 @@ namespace EGO.ViewController
         {
             mModel = toDo;
 
-            mBtnStart = new ButtonView("开始", () =>
+            mBtnStart = new ImageButtonVIew("play", () =>
             {
                 mModel.State.Value = V_1.TodoState.Started;
                 Refresh();
@@ -47,6 +47,10 @@ namespace EGO.ViewController
                 Refresh();
             }).Width(50);
 
+            mBtnStart.Width(40).Height(30);
+            mBtnFinish.Width(40).Height(30);
+            mBtnReset.Width(40).Height(30);
+
             AddChild(mBtnStart);
             AddChild(mBtnFinish);
             AddChild(mBtnReset);
@@ -54,7 +58,7 @@ namespace EGO.ViewController
 
             var Label = new CustomView(() =>
               {
-                  GUILayout.Label(mModel.mContent);
+                  GUILayout.Label(mModel.mContent,GUILayout.Height(30));
               });
 
             AddChild(Label);
@@ -98,10 +102,10 @@ namespace EGO.ViewController
                     break;
             }
 
-            //if (mModel.State.Value==V_1.TodoState.Done)
-            //{
-            //    RemoveFromParent();
-            //}
+            if (mModel.State.Value == V_1.TodoState.Done)
+            {
+                RemoveFromParent();
+            }
         }
     }
 }
