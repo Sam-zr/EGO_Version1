@@ -7,10 +7,9 @@ namespace EGO.ViewController
 {
     class ToDoListController:FrameWork.ViewController
     {
-        public Action<ToDo> OnTodoCreate;
+        public ToDoListView MTodoListView { get; set; } = new ToDoListView();
 
-        public ToDoListInputView InputView { get; set; } = new ToDoListInputView();
-        public ToDoListView ListView { get; set; } = new ToDoListView();
+        public FinishListView MFinishListView { get; set; } = new FinishListView();
 
         public ToolBarView ToolBarView { get; set; } = new ToolBarView();
  
@@ -24,27 +23,22 @@ namespace EGO.ViewController
 
             ToolBarView.AddMenu("清单", content =>
              {
-                 ListView.mShowFinished.Value = false;
-                 InputView.Show();
+                 MTodoListView.mShowFinished.Value = false;
+                 MTodoListView.Show();
+                 MFinishListView.Hide();
              });
             ToolBarView.AddMenu("已完成", content =>
             {
-                ListView.mShowFinished.Value = true;
-                InputView.Hide();
+                MTodoListView.mShowFinished.Value = true;
+                MTodoListView.Hide();
+                MFinishListView.Show();
             });
 
             mView.AddChild(ToolBarView);
 
-            InputView.OnTodoCreate = newToDo =>
-            {
-                newToDo.State.Bind(_ => ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model));
-                ModelLoader<V_1.ToDoList>.Model.ToDos.Add(newToDo);
-                ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
-                ListView.CreateToDoView(newToDo);
-            };
-            mView.AddChild(InputView);
+            mView.AddChild(MTodoListView);
 
-            mView.AddChild(ListView);
+            mView.AddChild(MFinishListView);
         }
     }
 }
