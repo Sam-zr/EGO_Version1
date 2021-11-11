@@ -32,12 +32,25 @@ namespace EGO.FrameWork
         public void Show()
         {
             mVisible = true;
+            OnShow();
         }
+
+        protected virtual void OnShow() { }
 
         public void Hide()
         {
             mVisible = false;
+            OnHide();
         }
+
+        protected virtual void OnHide() { }
+
+        public virtual void  Refresh()
+        {
+            OnRefresh();
+        }
+
+        protected virtual void OnRefresh() { }
 
         public bool mIsBeforeDrawGUI = false;
 
@@ -47,8 +60,14 @@ namespace EGO.FrameWork
             {
                 return;
             }
+            OnBeforeDrawGUI();
             mIsBeforeDrawGUI = true;
             mStyles = mLayoutOptions.ToArray();
+        }
+
+        protected virtual void OnBeforeDrawGUI()
+        {
+            
         }
 
         public void DrawGUI()

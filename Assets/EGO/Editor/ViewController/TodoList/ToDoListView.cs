@@ -35,6 +35,11 @@ namespace EGO.ViewController
 
         ILayout mTodosParentContainer = new VerticalLayout("box");
 
+        protected override void OnShow()
+        {
+            mTodosParentContainer.Refresh();
+        }
+
         public  void CreateToDoView(V_1.ToDo todo)
         {
             var todoView = new ToDoView(todo);

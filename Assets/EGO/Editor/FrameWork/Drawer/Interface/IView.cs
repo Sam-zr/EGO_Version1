@@ -8,6 +8,7 @@ namespace EGO.FrameWork
         ILayout Parent { get; set; }
         void Show();
         void Hide();
+        void Refresh();
         void DrawGUI();
         void RemoveFromParent();
         void AddLayoutOption(GUILayoutOption option);

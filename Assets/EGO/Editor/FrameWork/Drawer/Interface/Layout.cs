@@ -37,6 +37,12 @@ namespace EGO.FrameWork
             });
         }
 
+        public override void Refresh()
+        {
+            mChilds.ForEach(view => view.Refresh());
+            base.Refresh();
+        }
+
         protected override void OnGUI()
         {
             OnLayoutBegin();

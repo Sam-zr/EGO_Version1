@@ -32,19 +32,19 @@ namespace EGO.ViewController
             mBtnStart = new ButtonView("开始", () =>
             {
                 mModel.State.Value = V_1.TodoState.Started;
-                UpdateView();
+                Refresh();
             }).Width(50);
 
             mBtnFinish = new ButtonView("完成", () =>
             {
                 mModel.State.Value = V_1.TodoState.Done;
-                UpdateView();
+                Refresh();
             }).Width(50);
 
             mBtnReset = new ButtonView("重置", () =>
             {
                 mModel.State.Value = V_1.TodoState.NotStart;
-                UpdateView();
+                Refresh();
             }).Width(50);
 
             AddChild(mBtnStart);
@@ -65,15 +65,17 @@ namespace EGO.ViewController
                 ModelLoader<V_1.ToDoList>.Model.ToDos.Remove(mModel);
                 ModelExtension.Save(ModelLoader<V_1.ToDoList>.Model);
 
-                this.RemoveFromParent();
+                RemoveFromParent();
             }).Width(60);
-
             AddChild(button);
-
-            UpdateView();
         }
 
-        void UpdateView()
+        protected override void OnBeforeDrawGUI()
+        {
+            Refresh();
+        }
+
+        protected override void OnRefresh()
         {
             switch (mModel.State.Value)
             {
@@ -95,6 +97,11 @@ namespace EGO.ViewController
                 default:
                     break;
             }
+
+            //if (mModel.State.Value==V_1.TodoState.Done)
+            //{
+            //    RemoveFromParent();
+            //}
         }
     }
 }
